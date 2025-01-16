@@ -26,15 +26,17 @@ export const deleteComment = async (id: string) => {
 
 export const getCommentById = async (id: string) => {
     const result = await CommentSchema.findById(id).lean();
-    return result;
+    return {data: result};
 };
 
-export const getAllComment = async () => {
-    const result = await CommentSchema.find({}).lean();
-    return result;
+export const getAllComment = async (filter: {}) => {
+    const result = await CommentSchema.find(filter).lean();
+    return {total: result.length, data: result};
 };
-export const getCommentByEmail = async (email: string) => {
-    const result = await CommentSchema.findOne({ email }).lean();
-    return result;
-}
+
+export const getAllCommentInPost = async (id: string) => {
+    const result = await CommentSchema.find({postId: id}).lean();
+    return {total: result.length, data: result};
+};
+
 

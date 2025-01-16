@@ -26,15 +26,11 @@ export const deleteFollow = async (id: string) => {
 
 export const getFollowById = async (id: string) => {
     const result = await FollowSchema.findById(id).lean();
-    return result;
+    return {data: result};
 };
 
-export const getAllFollow = async () => {
-    const result = await FollowSchema.find({}).lean();
-    return result;
+export const getAllFollow = async (filter: {}) => {
+    const result = await FollowSchema.find(filter).lean();
+    return {total: result.length,data: result};
 };
-export const getFollowByEmail = async (email: string) => {
-    const result = await FollowSchema.findOne({ email }).lean();
-    return result;
-}
 

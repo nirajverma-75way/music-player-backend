@@ -32,6 +32,17 @@ export const getReplieById = asyncHandler(async (req: Request, res: Response) =>
 
 
 export const getAllReplie = asyncHandler(async (req: Request, res: Response) => {
-    const result = await ReplieService.getAllReplie();
+    const query = req.query;
+    const queryObject: Record<string, any> = {};
+    if (query?.userId) {
+    queryObject.userId = query.userId;
+    }
+    if (query?.postId) {
+    queryObject.postId = query.postId;
+    }
+    if (query?.parentId) {
+    queryObject.parentId = query.parentId;
+    }
+    const result = await ReplieService.getAllReplie(queryObject);
     res.send(createResponse(result))
 });

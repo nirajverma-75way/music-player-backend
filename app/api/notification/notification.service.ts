@@ -29,8 +29,8 @@ export const getNotificationById = async (id: string) => {
     return result;
 };
 
-export const getAllNotification = async () => {
-    const result = await NotificationSchema.find({}).lean();
+export const getAllNotification = async (filter: {}) => {
+    const result = await NotificationSchema.find(filter).lean();
     return result;
 };
 export const getNotificationByEmail = async (email: string) => {

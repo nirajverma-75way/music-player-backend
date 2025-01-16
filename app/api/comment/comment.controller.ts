@@ -1,11 +1,15 @@
 
 import * as CommentService from "./comment.service";
+import * as NotificationController from "../notification/notification.controller";
 import { createResponse } from "../../common/helper/response.hepler";
 import asyncHandler from "express-async-handler";
 import { type Request, type Response } from 'express'
 
 export const createComment = asyncHandler(async (req: Request, res: Response) => {
     const result = await CommentService.createComment(req.body);
+    /*NotificationController.createNotification({body:{}},res) =>{
+
+    }*/
     res.send(createResponse(result, "Comment created sucssefully"))
 });
 
@@ -32,6 +36,14 @@ export const getCommentById = asyncHandler(async (req: Request, res: Response) =
 
 
 export const getAllComment = asyncHandler(async (req: Request, res: Response) => {
-    const result = await CommentService.getAllComment();
+    const query = req.query;
+    const queryObject: Record<string, any> = {};
+    if (query?.userId) {
+    queryObject.userId = query.userId;
+    }
+    if (query?.postId) {
+    queryObject.postId = query.postId;
+    }
+    const result = await CommentService.getAllComment(queryObject);
     res.send(createResponse(result))
 });

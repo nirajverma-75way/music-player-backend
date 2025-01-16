@@ -26,15 +26,17 @@ export const deleteLike = async (id: string) => {
 
 export const getLikeById = async (id: string) => {
     const result = await LikeSchema.findById(id).lean();
-    return result;
+    return {data: result};
 };
 
-export const getAllLike = async () => {
-    const result = await LikeSchema.find({}).lean();
-    return result;
+export const getAllLikeInPost = async (id: string) => {
+    const result = await LikeSchema.find({postId: id}).lean();
+    return {total: result.length,data: result};
 };
-export const getLikeByEmail = async (email: string) => {
-    const result = await LikeSchema.findOne({ email }).lean();
-    return result;
-}
+
+export const getAllLike = async (queryObject: {}) => {
+    const result = await LikeSchema.find(queryObject).lean();
+    return {total: result.length,data: result};
+};
+
 

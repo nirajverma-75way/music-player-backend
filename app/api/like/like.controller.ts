@@ -32,6 +32,14 @@ export const getLikeById = asyncHandler(async (req: Request, res: Response) => {
 
 
 export const getAllLike = asyncHandler(async (req: Request, res: Response) => {
-    const result = await LikeService.getAllLike();
+    const query = req.query;
+    const queryObject: Record<string, any> = {};
+    if (query?.userId) {
+    queryObject.userId = query.userId;
+    }
+    if (query?.postId) {
+    queryObject.postId = query.postId;
+    }
+    const result = await LikeService.getAllLike(queryObject);
     res.send(createResponse(result))
 });

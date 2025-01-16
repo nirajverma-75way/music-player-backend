@@ -7,6 +7,11 @@ import replieRoutes from "./api/replie/replie.route";
 import followRoutes from "./api/follow/follow.route";
 import notificationRoutes from "./api/notification/notification.route";
 
+import swaggerUi from "swagger-ui-express";
+// import swaggerJsonFile from "../docs/swagger.json"
+const swaggerDocument = require("./swagger/swagger.json");
+
+
 // routes
 const router = express.Router();
 
@@ -16,6 +21,7 @@ router.use("/like", likeRoutes);
 router.use("/comments", commentRoutes);
 router.use("/replies", replieRoutes);
 router.use("/follow", followRoutes);
-router.use("/notification", notificationRoutes);
+router.use("/notifications", notificationRoutes);
+router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 export default router;

@@ -26,15 +26,11 @@ export const deletePost = async (id: string) => {
 
 export const getPostById = async (id: string) => {
     const result = await PostSchema.findById(id).lean();
-    return result;
+    return {data: result};
 };
 
 export const getAllPost = async () => {
     const result = await PostSchema.find({}).lean();
-    return result;
+    return {total: result.length, data: result};
 };
-export const getPostByEmail = async (email: string) => {
-    const result = await PostSchema.findOne({ email }).lean();
-    return result;
-}
 

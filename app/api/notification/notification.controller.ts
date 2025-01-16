@@ -1,11 +1,33 @@
 
+import * as UserService from "../user/user.service";
 import * as NotificationService from "./notification.service";
 import { createResponse } from "../../common/helper/response.hepler";
 import asyncHandler from "express-async-handler";
 import { type Request, type Response } from 'express'
+import { sendEmail } from "../../common/services/email.service";
 
 export const createNotification = asyncHandler(async (req: Request, res: Response) => {
-    const result = await NotificationService.createNotification(req.body);
+    const userDetail = await UserService.getUserById(req.body.userId);
+    if (!userDetail) {
+        // If user is not found, send an error response
+        res.status(404).json({ message: 'User not found' });
+      }
+      // Step 3: Send email notification
+      const mailStatus = await sendEmail({
+        from: process.env.MAIL_EMAIL,
+        to: userDetail?.email,
+        subject: `${req.body.type} | Social-Media`,
+        text: req.body.message,
+        html: `<h2>Hi ${userDetail?.name},</h2><h3>New Notification</h3><br/><p>You have got ${req.body.message}</p>`,
+      });
+  
+      if (mailStatus.error) {
+        // Log email failure and return an error response
+        console.error('Email failed:', mailStatus.error);
+        res.status(500).json({ message: 'Failed to send email notification' });
+      }   
+      const result = await NotificationService.createNotification(req.body);
+    
     res.send(createResponse(result, "Notification created sucssefully"))
 });
 
@@ -32,6 +54,14 @@ export const getNotificationById = asyncHandler(async (req: Request, res: Respon
 
 
 export const getAllNotification = asyncHandler(async (req: Request, res: Response) => {
-    const result = await NotificationService.getAllNotification();
+    const query = req.query;
+    const queryObject: Record<string, any> = {};
+    if (query?.userId) {
+    queryObject.userId = query.userId;
+    }
+    if (query?.refId) {
+    queryObject.refId = query.refId;
+    }
+    const result = await NotificationService.getAllNotification(queryObject);
     res.send(createResponse(result))
 });

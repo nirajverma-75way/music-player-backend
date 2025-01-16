@@ -22,19 +22,14 @@ export const editReplie = async (id: string, data: Partial<IReplie>) => {
 export const deleteReplie = async (id: string) => {
     const result = await ReplieSchema.deleteOne({ _id: id });
     return result;
-};
+}; 
 
 export const getReplieById = async (id: string) => {
     const result = await ReplieSchema.findById(id).lean();
-    return result;
+    return {data: result};
 };
 
-export const getAllReplie = async () => {
-    const result = await ReplieSchema.find({}).lean();
-    return result;
+export const getAllReplie = async (queryObject: {}) => {
+    const result = await ReplieSchema.find(queryObject).lean();
+    return {total: result.length, data: result};
 };
-export const getReplieByEmail = async (email: string) => {
-    const result = await ReplieSchema.findOne({ email }).lean();
-    return result;
-}
-

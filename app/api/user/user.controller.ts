@@ -31,18 +31,38 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const updateUser = asyncHandler(async (req: Request, res: Response) => {
-    const result = await userService.updateUser(req.params.id, req.body);
-    res.send(createResponse(result, "User updated sucssefully"))
+    const id = req?.user?._id || "";
+    if(id === req.params.id){
+      const result = await userService.updateUser(req.params.id, req.body);
+      res.send(createResponse(result, "User updated sucssefully"))
+    }
+    else{
+      res.send(createResponse(null, "User trying to update other's data"))
+    }
+    
 });
 
 export const editUser = asyncHandler(async (req: Request, res: Response) => {
-    const result = await userService.editUser(req.params.id, req.body);
-    res.send(createResponse(result, "User updated sucssefully"))
+  const id = req?.user?._id || "";
+    if(id === req.params.id){
+      const result = await userService.editUser(req.params.id, req.body);
+      res.send(createResponse(result, "User updated sucssefully"))
+    }
+    else{
+      res.send(createResponse(null, "User trying to update other's data"))
+    }
+    
 });
 
 export const deleteUser = asyncHandler(async (req: Request, res: Response) => {
-    const result = await userService.deleteUser(req.params.id);
-    res.send(createResponse(result, "User deleted sucssefully"))
+    const id = req?.user?._id || "";
+    if(id === req.params.id){
+      const result = await userService.deleteUser(req.params.id);
+      res.send(createResponse(result, "User deleted sucssefully"))
+    }
+    else{
+      res.send(createResponse(null, "User trying to delete other's data"))
+    }
 });
 
 

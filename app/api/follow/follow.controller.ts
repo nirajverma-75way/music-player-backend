@@ -32,6 +32,14 @@ export const getFollowById = asyncHandler(async (req: Request, res: Response) =>
 
 
 export const getAllFollow = asyncHandler(async (req: Request, res: Response) => {
-    const result = await FollowService.getAllFollow();
+    const query = req.query;
+    const queryObject: Record<string, any> = {};
+    if (query?.followerId) {
+    queryObject.followerId = query.followerId;
+    }
+    if (query?.followingId) {
+    queryObject.followingId = query.followingId;
+    }
+    const result = await FollowService.getAllFollow(queryObject);
     res.send(createResponse(result))
 });
