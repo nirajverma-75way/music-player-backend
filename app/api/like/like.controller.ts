@@ -1,11 +1,21 @@
-
+import * as PostService from "../post/post.service";
+import * as NotificationController from "../notification/notification.controller";
 import * as LikeService from "./like.service";
 import { createResponse } from "../../common/helper/response.hepler";
 import asyncHandler from "express-async-handler";
-import { type Request, type Response } from 'express'
+import { NextFunction, type Request, type Response } from 'express'
 
-export const createLike = asyncHandler(async (req: Request, res: Response) => {
+export const createLike = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const result = await LikeService.createLike(req.body);
+    const postDetail = await PostService.getPostById(req.body.postId);
+    const notificationRequest = {
+        userId: postDetail?.data?.userId,
+        refId: result?._id,
+        type: "LIKE",       
+        message: `A new like was created`,  
+    };
+    const notificationDetail = await NotificationController.createNotification({ body: notificationRequest } as Request, res,next);  // Call with the appropriate request and response
+    
     res.send(createResponse(result, "Like created sucssefully"))
 });
 

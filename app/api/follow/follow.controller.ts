@@ -1,11 +1,20 @@
-
+import * as PostService from "../post/post.service";
+import * as NotificationController from "../notification/notification.controller";
 import * as FollowService from "./follow.service";
 import { createResponse } from "../../common/helper/response.hepler";
 import asyncHandler from "express-async-handler";
-import { type Request, type Response } from 'express'
+import { NextFunction, type Request, type Response } from 'express'
 
-export const createFollow = asyncHandler(async (req: Request, res: Response) => {
+export const createFollow = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const result = await FollowService.createFollow(req.body);
+    const notificationRequest = {
+        userId: req.body.followingId,
+        refId: result?._id,
+        type: "FOLLOW",       
+        message: `A new user followed you`,  
+    };
+    const notificationDetail = await NotificationController.createNotification({ body: notificationRequest } as Request, res,next);  // Call with the appropriate request and response
+        
     res.send(createResponse(result, "Follow created sucssefully"))
 });
 

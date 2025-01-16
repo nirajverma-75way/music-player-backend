@@ -20,15 +20,15 @@ export const createNotification = asyncHandler(async (req: Request, res: Respons
         text: req.body.message,
         html: `<h2>Hi ${userDetail?.name},</h2><h3>New Notification</h3><br/><p>You have got ${req.body.message}</p>`,
       });
-  
+      console.log(mailStatus)
       if (mailStatus.error) {
         // Log email failure and return an error response
         console.error('Email failed:', mailStatus.error);
         res.status(500).json({ message: 'Failed to send email notification' });
       }   
       const result = await NotificationService.createNotification(req.body);
-    
-    res.send(createResponse(result, "Notification created sucssefully"))
+    return
+    //res.send(createResponse(result, "Notification created sucssefully"))
 });
 
 export const updateNotification = asyncHandler(async (req: Request, res: Response) => {

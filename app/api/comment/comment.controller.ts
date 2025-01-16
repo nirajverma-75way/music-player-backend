@@ -1,15 +1,21 @@
-
-import * as CommentService from "./comment.service";
+import * as PostService from "../post/post.service";
 import * as NotificationController from "../notification/notification.controller";
+import * as CommentService from "./comment.service";
 import { createResponse } from "../../common/helper/response.hepler";
 import asyncHandler from "express-async-handler";
-import { type Request, type Response } from 'express'
+import { NextFunction, type Request, type Response } from 'express'
 
-export const createComment = asyncHandler(async (req: Request, res: Response) => {
+export const createComment = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const result = await CommentService.createComment(req.body);
-    /*NotificationController.createNotification({body:{}},res) =>{
-
-    }*/
+    const postDetail = await PostService.getPostById(req.body.postId);
+    const notificationRequest = {
+        userId: postDetail?.data?.userId,
+        refId: result?._id,
+        type: "COMMENT",       
+        message: `A new comment was created: ${req.body.content}`,  
+    };
+    const notificationDetail = await NotificationController.createNotification({ body: notificationRequest } as Request, res,next);  // Call with the appropriate request and response
+    
     res.send(createResponse(result, "Comment created sucssefully"))
 });
 
