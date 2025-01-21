@@ -164,6 +164,5 @@ We welcome contributions! If you'd like to contribute to this project, follow th
 
 ## Data Flow Diagram
 
-![dfd-social drawio](https://github.com/user-attachments/assets/439aded1-176c-4e81-b40c-eab0da1d8a75)
-
+![dfd](https://github.com/user-attachments/assets/99e746d6-c167-428e-8b3f-c9c291a5056f)
 
