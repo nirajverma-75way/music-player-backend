@@ -69,8 +69,8 @@ Once the application is running, you can interact with the API endpoints using t
 
 To authenticate, you will need to use the following endpoints:
 
-- **Login**: `POST /api/auth/login`
-- **Register**: `POST /api/auth/register`
+- **Login**: `POST /api/users/login`
+- **Register**: `POST /api/users`
 
 You will receive a JWT token upon successful login or registration, which should be included in the `Authorization` header for protected routes.
 
@@ -80,6 +80,7 @@ You will receive a JWT token upon successful login or registration, which should
 
 - `POST /api/users`: Create a new user.
 - `GET /api/users`: Get all users.
+- `GET /api/ref-token`: Get Refresh token of user.
 - `GET /api/users/:id`: Get a user by ID.
 - `PUT /api/users/:id`: Update a user by ID.
 - `DELETE /api/users/:id`: Delete a user by ID.
@@ -161,7 +162,7 @@ We welcome contributions! If you'd like to contribute to this project, follow th
 6. Create a new Pull Request.
 
 
-Data Flow Diagram
+## Data Flow Diagram
 
 ![dfd-social drawio](https://github.com/user-attachments/assets/439aded1-176c-4e81-b40c-eab0da1d8a75)
 
