@@ -160,3 +160,10 @@ We welcome contributions! If you'd like to contribute to this project, follow th
 5. Push to the branch (`git push origin feature/your-feature`).
 6. Create a new Pull Request.
 
+
+Data Flow Diagram
+
+![dfd-social drawio](https://github.com/user-attachments/assets/439aded1-176c-4e81-b40c-eab0da1d8a75)
+
+
+Data 
