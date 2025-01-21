@@ -9,6 +9,7 @@ import { loadConfig } from "./app/common/helper/config.hepler";
 import { type IUser } from "./app/api/user/user.dto";
 import errorHandler from "./app/common/middleware/error-handler.middleware";
 import routes from "./app/routes";
+import limiter from "./app/common/middleware/rate-limiter.middleware";
 
 loadConfig();
 
@@ -37,7 +38,8 @@ const initApp = async (): Promise<void> => {
 
   // passport init
   initPassport();
-
+  //Rate Limiter
+  app.use(limiter);
   // set base path to /api
   app.use("/api", routes);
 

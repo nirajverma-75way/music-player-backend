@@ -14,6 +14,7 @@ export const roleAuth = (
         next();
         return;
       }
+      console.log(req.headers)
       const token = req.headers.authorization?.replace("Bearer ", "");
 
       if (!token) {

@@ -37,7 +37,9 @@
         "type": "apiKey",
         "name": "Authorization",
         "in": "header",
-        "description": "Enter your Bearer Token in the format: Bearer <token>"
+        "description": "Enter your Bearer Token in the format: Bearer <token>",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     },
     "schemas": {
@@ -114,6 +116,11 @@
       "get": {
         "tags": ["User"],
         "summary": "Get all users",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of users",
@@ -176,6 +183,11 @@
             "required": true,
             "type": "string",
             "description": "The user ID"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
           }
         ],
         "responses": {
@@ -335,10 +347,35 @@
         }
       }
     },
+    "/users/ref-token": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Refresh Token",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token Refresh successful"
+          },
+          "400": {
+            "description": "Token Not Available "
+          }
+        }
+      }
+    },
     "/posts": {
       "get": {
         "tags": ["Post"],
         "summary": "Get all posts",
+
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of posts",
@@ -392,6 +429,12 @@
       "get": {
         "tags": ["Post"],
         "summary": "Get a post by ID",
+
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -527,6 +570,11 @@
       "get": {
         "tags": ["Like"],
         "summary": "Get all likes",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of likes",
@@ -579,6 +627,11 @@
       "get": {
         "tags": ["Like"],
         "summary": "Get a like by ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -714,6 +767,11 @@
       "get": {
         "tags": ["Comment"],
         "summary": "Get all comments",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of comments",
@@ -767,6 +825,11 @@
       "get": {
         "tags": ["Comment"],
         "summary": "Get a comment by ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -902,6 +965,11 @@
       "get": {
         "tags": ["Replies"],
         "summary": "Get all replies",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of replies",
@@ -956,6 +1024,11 @@
       "get": {
         "tags": ["Replies"],
         "summary": "Get a reply by ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1092,6 +1165,11 @@
       "get": {
         "tags": ["Follow"],
         "summary": "Get all follow relationships",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of follow relationships",
@@ -1144,6 +1222,11 @@
       "get": {
         "tags": ["Follow"],
         "summary": "Get a follow relationship by ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1278,6 +1361,11 @@
       "get": {
         "tags": ["Notification"],
         "summary": "Get all notifications",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of notifications",
@@ -1333,6 +1421,11 @@
       "get": {
         "tags": ["Notification"],
         "summary": "Get a notification by ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",

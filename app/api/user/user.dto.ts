@@ -6,5 +6,7 @@ export interface IUser extends BaseSchema {
         bio?: string;
         username: string;
         email: string;
-        password: string
+        password: string;
+        accessToken?: string;
+        refreshToken?: string;
 }

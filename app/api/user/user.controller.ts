@@ -3,7 +3,8 @@ import { createResponse } from "../../common/helper/response.hepler";
 import asyncHandler from "express-async-handler";
 import { type Request, type Response } from 'express'
 import passport from "passport";
-import { createUserTokens } from "../../common/services/passport-jwt.service";
+import { createUserTokens, decodeToken } from "../../common/services/passport-jwt.service";
+import { IUser } from "./user.dto";
 
 /**
  * Creates a new user.
@@ -33,12 +34,43 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
           }
     
           const { accessToken, refreshToken } = createUserTokens(user);
-    
+          await userService.editUser(user._id, {accessToken, refreshToken});
+          delete user.accessToken;
+          delete user.refreshToken;
           res.send(
             createResponse({ accessToken, refreshToken, user }, "Login successful")
           );
         }
       )(req, res);
+});
+/**
+ * Updates a user accessToken.
+ * @param {Request} req - The request object containing user data to accessToken.
+ * @param {Response} res - The response object to send the result.
+ * @returns {Promise<void>} The response will contain the updated user token.
+ */
+export const genRefToken = asyncHandler(async (req: Request, res: Response) => {
+        const refToken = req.headers.authorization?.replace("Bearer ", "");;
+        if(refToken){
+          const user = await userService.getUserByEmail(req?.user?.email || "");
+          if(refToken === user?.refreshToken){
+            const { accessToken, refreshToken } = createUserTokens(user);
+            await userService.editUser(user._id, {accessToken, refreshToken});
+            delete user.accessToken;
+            delete user.refreshToken;
+            res.send(
+              createResponse({ accessToken, refreshToken }, "Token Refresh successful")
+            );
+          }
+          else{
+            res.send(createResponse("Wrong Token"));
+          }
+        }
+        else{
+          res.send(createResponse("Token Not Found"));
+        }
+        
+
 });
 
 /**

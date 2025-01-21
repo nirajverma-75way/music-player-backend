@@ -3,16 +3,17 @@ import { Router } from "express";
 import { catchError } from "../../common/middleware/cath-error.middleware";
 import * as ReplieController from "./replie.controller";
 import * as ReplieValidator from "./replie.validation";
+import { roleAuth } from "../../common/middleware/role-auth.middleware";
 
 const router = Router();
 
 router
-        .get("/", ReplieController.getAllReplie)
-        .get("/:id", ReplieController.getReplieById)
-        .delete("/:id", ReplieController.deleteReplie)
-        .post("/", ReplieValidator.createReplie, catchError, ReplieController.createReplie)
-        .put("/:id", ReplieValidator.updateReplie, catchError, ReplieController.updateReplie)
-        .patch("/:id", ReplieValidator.editReplie, catchError, ReplieController.editReplie)
+        .get("/", roleAuth(), ReplieController.getAllReplie)
+        .get("/:id", roleAuth(), ReplieController.getReplieById)
+        .delete("/:id", roleAuth(), ReplieController.deleteReplie)
+        .post("/", roleAuth(), ReplieValidator.createReplie, catchError, ReplieController.createReplie)
+        .put("/:id", roleAuth(), ReplieValidator.updateReplie, catchError, ReplieController.updateReplie)
+        .patch("/:id", roleAuth(), ReplieValidator.editReplie, catchError, ReplieController.editReplie)
 
 export default router;
 
