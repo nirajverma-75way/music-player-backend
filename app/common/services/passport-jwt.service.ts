@@ -26,8 +26,8 @@ export const initPassport = (): void => {
         } catch (error) {
           done(error);
         }
-      }
-    )
+      },
+    ),
   );
 
   // user login
@@ -66,8 +66,8 @@ export const initPassport = (): void => {
         } catch (error: any) {
           done(createError(500, error.message));
         }
-      }
-    )
+      },
+    ),
   );
 };
 
@@ -75,8 +75,8 @@ export const createUserTokens = (user: Omit<IUser, "password">) => {
   const jwtSecret = process.env.JWT_SECRET ?? "";
   delete user.accessToken;
   delete user.refreshToken;
-  const token = jwt.sign(user, jwtSecret, { expiresIn: '6h' });
-  const refToken = jwt.sign(user, jwtSecret, { expiresIn: '7d' });
+  const token = jwt.sign(user, jwtSecret, { expiresIn: "6h" });
+  const refToken = jwt.sign(user, jwtSecret, { expiresIn: "7d" });
   return { accessToken: token, refreshToken: refToken };
 };
 

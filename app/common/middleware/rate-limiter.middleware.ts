@@ -1,6 +1,6 @@
 // rateLimiter.ts
-import rateLimit from 'express-rate-limit';
-import { Request, Response, NextFunction } from 'express';
+import rateLimit from "express-rate-limit";
+import { Request, Response, NextFunction } from "express";
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 30,

@@ -1,4 +1,3 @@
-
 # Social Media API
 
 This is a Social Media API backend project, built with Node.js, Express, and MongoDB. It provides endpoints for managing users, posts, likes, comments, notifications, and more. The API also supports user authentication via JWT (JSON Web Tokens).
@@ -161,8 +160,6 @@ We welcome contributions! If you'd like to contribute to this project, follow th
 5. Push to the branch (`git push origin feature/your-feature`).
 6. Create a new Pull Request.
 
-
 ## Data Flow Diagram
 
 ![dfd](https://github.com/user-attachments/assets/99e746d6-c167-428e-8b3f-c9c291a5056f)
-

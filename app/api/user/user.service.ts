@@ -7,8 +7,8 @@ import UserSchema from "./user.schema";
  * @returns {Promise<IUser>} The created user object.
  */
 export const createUser = async (data: IUser) => {
-    const result = await UserSchema.create({ ...data, active: true });
-    return result;
+  const result = await UserSchema.create(data);
+  return result;
 };
 
 /**
@@ -18,10 +18,10 @@ export const createUser = async (data: IUser) => {
  * @returns {Promise<IUser>} The updated user object.
  */
 export const updateUser = async (id: string, data: IUser) => {
-    const result = await UserSchema.findOneAndUpdate({ _id: id }, data, {
-        new: true,
-    });
-    return result;
+  const result = await UserSchema.findOneAndUpdate({ _id: id }, data, {
+    new: true,
+  });
+  return result;
 };
 
 /**
@@ -31,8 +31,8 @@ export const updateUser = async (id: string, data: IUser) => {
  * @returns {Promise<IUser>} The updated user object.
  */
 export const editUser = async (id: string, data: Partial<IUser>) => {
-    const result = await UserSchema.findOneAndUpdate({ _id: id }, data);
-    return result;
+  const result = await UserSchema.findOneAndUpdate({ _id: id }, data);
+  return result;
 };
 
 /**
@@ -41,8 +41,8 @@ export const editUser = async (id: string, data: Partial<IUser>) => {
  * @returns {Promise<any>} The result of the delete operation.
  */
 export const deleteUser = async (id: string) => {
-    const result = await UserSchema.deleteOne({ _id: id });
-    return result;
+  const result = await UserSchema.deleteOne({ _id: id });
+  return result;
 };
 
 /**
@@ -51,8 +51,8 @@ export const deleteUser = async (id: string) => {
  * @returns {Promise<IUser | null>} The user object or null if not found.
  */
 export const getUserById = async (id: string) => {
-    const result = await UserSchema.findById(id).lean();
-    return result;
+  const result = await UserSchema.findById(id).lean();
+  return result;
 };
 
 /**
@@ -60,8 +60,8 @@ export const getUserById = async (id: string) => {
  * @returns {Promise<IUser[]>} A list of all user objects.
  */
 export const getAllUser = async () => {
-    const result = await UserSchema.find({}).lean();
-    return result;
+  const result = await UserSchema.find({}).lean();
+  return result;
 };
 
 /**
@@ -70,6 +70,6 @@ export const getAllUser = async () => {
  * @returns {Promise<IUser | null>} The user object or null if not found.
  */
 export const getUserByEmail = async (email: string) => {
-    const result = await UserSchema.findOne({ email }).lean();
-    return result;
+  const result = await UserSchema.findOne({ email }).lean();
+  return result;
 };
