@@ -112,6 +112,11 @@ A music player application built with Node.js, React.js, and MongoDB. The app al
    npm start
    ```
 
+## DFD
+
+![er-diagram](https://github.com/user-attachments/assets/d8bbda34-277b-4a4d-bfde-6f8489be48cb)
+
+
 ## Contributing
 
 1. Fork the repository.
