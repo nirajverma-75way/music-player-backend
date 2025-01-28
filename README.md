@@ -1,165 +1,131 @@
-# Social Media API
 
-This is a Social Media API backend project, built with Node.js, Express, and MongoDB. It provides endpoints for managing users, posts, likes, comments, notifications, and more. The API also supports user authentication via JWT (JSON Web Tokens).
+# Music Player App
+
+A music player application built with Node.js, React.js, and MongoDB. The app allows users to play music and like songs. Admin users can upload music, lyrics, and create playlists.
 
 ## Features
 
-- User Authentication: Login and registration functionality using JWT tokens.
-- CRUD Operations for Users, Posts, Likes, Comments, Notifications, Replies.
-- Email Notifications: Send email notifications to users for different actions.
-- Secure Endpoints: Only authorized users can modify or delete their data.
-- Media Uploads: Support for media files (images, videos) uploaded via the API.
+- **User Authentication**: Users can register, log in, and reset their passwords.
+- **Music Playback**: Users can play songs and like songs.
+- **Admin Features**: Admins can upload songs, manage playlists, and more.
+- **Playlist Management**: Users can create, update, and delete playlists.
+- **Song Management**: Users can upload and manage songs.
 
-## Table of Contents
+## Tech Stack
 
-1. [Installation](#installation)
-2. [Usage](#usage)
-3. [API Endpoints](#api-endpoints)
-4. [Authentication](#authentication)
-5. [Contributing](#contributing)
-6. [License](#license)
-
-## Installation
-
-To get started with the project, follow these steps:
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your-username/social-media-api.git
-cd social-media-api
-```
-
-### 2. Install dependencies
-
-Make sure you have Node.js and npm installed on your system. Then, install the required dependencies:
-
-```bash
-npm install
-```
-
-### 3. Set up environment variables
-
-Create a `.env` file in the root directory of the project and add the following environment variables:
-
-```
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/social-media-db
-MAIL_EMAIL=your-email@gmail.com
-MAIL_PASSWORD=your-email-password
-JWT_SECRET=your-jwt-secret
-```
-
-### 4. Run the application
-
-Start the application with the following command:
-
-```bash
-npm start
-```
-
-The server will run on `http://localhost:5000`.
-
-## Usage
-
-Once the application is running, you can interact with the API endpoints using tools like [Postman](https://www.postman.com/) or through your frontend application.
-
-### Authentication
-
-To authenticate, you will need to use the following endpoints:
-
-- **Login**: `POST /api/users/login`
-- **Register**: `POST /api/users`
-
-You will receive a JWT token upon successful login or registration, which should be included in the `Authorization` header for protected routes.
+- **Backend**: Node.js, Express.js, MongoDB, JWT Authentication
+- **Frontend**: React.js, Material UI, React Hook Form, Skeleton Loading
+- **Database**: MongoDB
+- **Authentication**: JWT (JSON Web Token)
+- **State Management**: React Context API
 
 ## API Endpoints
 
+### API DOCUMENTATION
+
+- `GET /docs`: You can access swagger documentation.
+
 ### User Endpoints
 
-- `POST /api/users`: Create a new user.
-- `GET /api/users`: Get all users.
-- `GET /api/ref-token`: Get Refresh token of user.
-- `GET /api/users/:id`: Get a user by ID.
-- `PUT /api/users/:id`: Update a user by ID.
-- `DELETE /api/users/:id`: Delete a user by ID.
+- `POST /users/login`: Login a user and receive a JWT token.
+- `POST /users/forget-password`: Request a password reset code.
+- `POST /users/reset-password`: Reset the user's password using a code.
+- `GET /users`: Retrieve all users.
+- `POST /users`: Create a new user.
+- `GET /users/{id}`: Get a specific user by ID.
+- `PUT /users/{id}`: Update a user by ID.
+- `PATCH /users/{id}`: Partially update a user by ID.
+- `DELETE /users/{id}`: Delete a user by ID.
 
-### Post Endpoints
+### Song Endpoints
 
-- `POST /api/posts`: Create a new post.
-- `GET /api/posts`: Get all posts.
-- `GET /api/posts/:id`: Get a post by ID.
-- `PUT /api/posts/:id`: Update a post by ID.
-- `DELETE /api/posts/:id`: Delete a post by ID.
+- `GET /songs`: Retrieve all songs.
+- `POST /songs`: Upload a new song.
+- `GET /songs/{id}`: Get a specific song by ID.
+- `PUT /songs/{id}`: Update a song by ID.
+- `PATCH /songs/{id}`: Partially update a song by ID.
+- `DELETE /songs/{id}`: Delete a song by ID.
 
-### Comment Endpoints
+### Playlist Endpoints
 
-- `POST /api/comments`: Create a new comment on a post.
-- `GET /api/comments`: Get all comments.
-- `GET /api/comments/:id`: Get a comment by ID.
-- `PUT /api/comments/:id`: Update a comment by ID.
-- `DELETE /api/comments/:id`: Delete a comment by ID.
+- `GET /playlist`: Retrieve all playlists.
+- `POST /playlist`: Upload a new playlist.
+- `GET /playlist/{id}`: Get a specific playlist by ID.
+- `PUT /playlist/{id}`: Update a playlist by ID.
+- `PATCH /playlist/{id}`: Partially update a playlist by ID.
+- `DELETE /playlist/{id}`: Delete a playlist by ID.
 
-### Like Endpoints
+### Playlist-Song Endpoints
 
-- `POST /api/likes`: Like a post.
-- `GET /api/likes`: Get all likes.
-- `DELETE /api/likes/:id`: Remove a like from a post.
+- `GET /playlist-song`: Retrieve all playlist-song entries.
+- `POST /playlist-song`: Add a new song to a playlist.
+- `GET /playlist-song/{id}`: Get a playlist-song entry by ID.
+- `PUT /playlist-song/{id}`: Update a playlist-song entry by ID.
+- `PATCH /playlist-song/{id}`: Partially update a playlist-song entry by ID.
+- `DELETE /playlist-song/{id}`: Delete a playlist-song entry by ID.
 
-### Notification Endpoints
+### Like-Song Endpoints
 
-- `POST /api/notifications`: Create a new notification.
-- `GET /api/notifications`: Get all notifications.
-- `GET /api/notifications/:id`: Get a notification by ID.
-- `PUT /api/notifications/:id`: Update a notification by ID.
-- `DELETE /api/notifications/:id`: Delete a notification by ID.
+- `GET /like-song`: Retrieve all liked songs.
+- `POST /like-song`: Like a new song.
+- `GET /like-song/{id}`: Get a liked song by ID.
+- `PUT /like-song/{id}`: Update a liked song by ID.
+- `DELETE /like-song/{id}`: Remove a song from liked list.
 
-### Replie Endpoints
+## Installation
 
-- `POST /api/replies`: Create a new reply to a comment or post.
-- `GET /api/replies`: Get all replies.
-- `GET /api/replies/:id`: Get a reply by ID.
-- `PUT /api/replies/:id`: Update a reply by ID.
-- `DELETE /api/replies/:id`: Delete a reply by ID.
+### Backend
 
-## Authentication
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/music-player.git
+   cd music-player
+   ```
 
-For most routes, you need to include the JWT token in the request header for authentication.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### Login
+3. Set up environment variables:
+   - Create a `.env` file and add necessary variables (e.g., database URL, JWT secret).
 
-To log in, send a `POST` request to the `/api/auth/login` endpoint with the following payload:
+4. Run the server:
+   ```bash
+   npm start
+   ```
 
-```json
-{
-  "email": "user@example.com",
-  "password": "password"
-}
-```
+### Frontend
 
-The server will return a JSON object with `accessToken` and `refreshToken`.
+1. Navigate to the frontend folder:
+   ```bash
+   cd frontend
+   ```
 
-### Using the Token
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Include the `accessToken` in the `Authorization` header for all protected routes.
-
-Example:
-
-```
-Authorization: Bearer YOUR_ACCESS_TOKEN
-```
+3. Run the React app:
+   ```bash
+   npm start
+   ```
 
 ## Contributing
 
-We welcome contributions! If you'd like to contribute to this project, follow these steps:
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Open a pull request.
 
-1. Fork this repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Make your changes.
-4. Commit your changes (`git commit -am 'Add new feature'`).
-5. Push to the branch (`git push origin feature/your-feature`).
-6. Create a new Pull Request.
+## License
 
-## Data Flow Diagram
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-![dfd](https://github.com/user-attachments/assets/99e746d6-c167-428e-8b3f-c9c291a5056f)
+## Acknowledgements
+
+- Thanks to the open-source libraries used in this project.
+- Material UI for the UI components.
+- React Hook Form for handling forms.
